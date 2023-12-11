@@ -4,22 +4,27 @@ import AddActivity from '../components/AddActivity';
 import { useSelector } from 'react-redux';
 
 const Workout = () => {
-  const [isAddingActivity, setAddingActivity] = useState(false);
+  const [add, setAdd] = useState(false);
   const allActivities = useSelector((state) => state);
 
-  const toggleAddActivity = () => {
-    setAddingActivity(!isAddingActivity);
+  const handleClick = () => {
+    setAdd(!add);
   };
 
   return (
     <div className="workout-wrapper">
       <h2>My Workout</h2>
-      <button className="button-55" role="button" style={{ margin: "15px" }} onClick={toggleAddActivity}>
-        {isAddingActivity ? "Cancel Add Activity" : "Add Activity"}
+      <button className="button-55" role="button" style={{ margin: "15px" }} onClick={handleClick}>
+        Add Activity
       </button>
-      {isAddingActivity && <AddActivity />}
-      {allActivities.map(({ id, name, duration }) => (
-        <Activity key={id} id={id} name={name} duration={duration} />
+      {add && <AddActivity />}
+      {allActivities.map((activity) => (
+        <Activity
+          key={activity.id}
+          id={activity.id}
+          name={activity.name}
+          duration={activity.duration}
+        />
       ))}
     </div>
   );
